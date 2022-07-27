@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dani's page</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <img src="./assets/logo.png" alt="logo" class="logo" />
+      <ul class="links">
+        <li>
+          <a href="#hero">About</a>
+        </li>
+        <li>
+          <a href="#info">Info</a>
+        </li>
+        <li>
+          <a href="#call-to-action">Join</a>
+        </li>
+      </ul>
+    </nav>
+    <header id="hero">
+      <div class="hero-border exterior">
+        <div class="hero-border interior">
+          <div class="hero-content">
+            <div class="hero-content-title">
+              <h1>
+                WELCOME TO <br />
+                <!-- see the script tag at the end of body to see the magic 
+                                     and in styles.css the keyframe animation at the bottom-->
+                <span id="rainbow-text">
+                  <span>D</span><span>A</span><span>N</span><span>I</span><span>'</span
+                  ><span>S</span>
+
+                  <span>P</span><span>A</span><span>G</span><span>E</span>
+                </span>
+              </h1>
+            </div>
+            <p>
+              This is where a cool description, or a cool quote, or a cool
+              <i>something</i> should be... Anyway, here's a picture of the
+              <strong>best</strong> rubber duck debugger.
+            </p>
+            <div class="button" onclick="openPopover()">Follow Dani</div>
+          </div>
+          <img src="./assets/Dani.jpg" alt="Dani" />
+        </div>
+      </div>
+    </header>
+    <main>
+      <section id="info">
+        <h2>Information</h2>
+        <div>
+          <div class="box">
+            <img src="./assets/Joldi.jpg" alt="Joldi" />
+            <p>
+              Joldi <br />
+              Dani's best friend
+            </p>
+          </div>
+          <div class="box">
+            <img src="./assets/Joey.jpg" alt="Joey" />
+            <p>
+              Joey <br />
+              Dani's brother
+            </p>
+          </div>
+          <div class="box">
+            <img src="./assets/Family.jpg" alt="Family" />
+            <p>Family outing in their private pool</p>
+          </div>
+          <div class="box">
+            <img src="./assets/pool.jpg" alt="pool" />
+            <p>Dani's big pool</p>
+          </div>
+        </div>
+      </section>
+      <section id="quote-section">
+        <div class="quote">
+          <div class="quote-text">
+            <i class="fa-solid fa-quote-left"></i>
+            <span>
+              I ran out of ideas after that <strong>cool description</strong> at the top
+            </span>
+            <i class="fa-solid fa-quote-right"></i>
+          </div>
+          <div class="quote-author">- Dani</div>
+        </div>
+      </section>
+      <section id="call-to-action">
+        <div>
+          Become Dani's supporter by clicking the button right there
+          <i class="fa-solid fa-arrow-right-long"></i>
+        </div>
+        <div class="button" onclick="openPopover()">Follow Dani</div>
+      </section>
+    </main>
+    <footer>
+      Copyright &copy;
+      <a href="https://github.com/CozmaRares" target="_blank" rel="noopener noreferrer">Raru</a>,
+      2022
+      <br />
+      In conjunction with
+      <a href="https://www.theodinproject.com" target="_blank" rel="noopener noreferrer">
+        The Odin Project
+      </a>
+    </footer>
+    <div id="popover">
+      <div class="popover-container">
+        <p>Of course it doesn't do anything OmegaLUL</p>
+        <div class="button" style="margin: 1rem auto 0 auto" onclick="closePopover()">Close</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    {
+      const colors = ["#f02c03", "#ff950c", "#fedc03", "#7cda01", "#0d8dff", "#b02ff7"];
+
+      // destructure HTMLCollection
+      const spans = [...document.getElementById("rainbow-text").children];
+
+      const computeColorIndex = (idxSpan, idxColor) =>
+        (((colors.length - idxSpan + idxColor) % colors.length) + colors.length) % colors.length; // mathematic modulo -> -3%7=4
+      //   ^ 1st span gets the first color, 2nd span gets the last, 3rd span gets the 2nd to last and so on...
+
+      spans.forEach((span, idxSpan) =>
+        colors.forEach((color, idxColor) =>
+          span.style.setProperty(`--c${idxColor + 1}`, colors[computeColorIndex(idxSpan, idxColor)])
+        )
+      );
+    }
+
+    const popoverElement = document.getElementById("popover");
+    const body = document.getElementsByTagName("body")[0];
+
+    function openPopover() {
+      body.style.pointerEvents = "none";
+      body.style.userSelect = "none";
+      popoverElement.style.display = "block";
+    }
+
+    function closePopover() {
+      body.style.pointerEvents = "initial";
+      body.style.userSelect = "initial";
+      popoverElement.style.display = "none";
+    }
+  </script>
+</html>
