@@ -64,7 +64,6 @@ nav a:hover {
 }
 
 #hero {
-  width: 100vw;
   height: 80vh;
   padding: 2rem 0 1rem 0;
   color: white;
@@ -112,8 +111,32 @@ nav a:hover {
   text-shadow: 0px 0px 20px;
 }
 
-.hero-content-title h1 span {
+#rainbow-text span {
   animation: rainbow-text 2s linear infinite;
+}
+
+@keyframes rainbow-text {
+  0% {
+    color: var(--c0);
+  }
+  16.66% {
+    color: var(--c1);
+  }
+  33.32% {
+    color: var(--c2);
+  }
+  50% {
+    color: var(--c3);
+  }
+  66.65% {
+    color: var(--c4);
+  }
+  83.3% {
+    color: var(--c5);
+  }
+  100% {
+    color: var(--c0);
+  }
 }
 
 .hero-content p {
@@ -152,10 +175,6 @@ nav a:hover {
   border: 10px solid lightblue;
 }
 
-main {
-  width: 100vw;
-}
-
 #info h2 {
   width: 100%;
   text-align: center;
@@ -174,10 +193,6 @@ main {
 }
 
 .box {
-  /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
   width: 250px;
 }
 
@@ -255,11 +270,15 @@ footer a {
   text-decoration: none;
 }
 
-footer a:hover {
-  text-decoration: underline;
+footer a i {
+  transition: transform 200ms ease-in-out;
 }
 
-#popover {
+footer a:hover i {
+  transform: rotate(360deg);
+}
+
+#overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -269,7 +288,7 @@ footer a:hover {
   height: 100vh;
 }
 
-.popover-container {
+.overlay-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -281,28 +300,4 @@ footer a:hover {
   pointer-events: initial !important;
   user-select: initial !important;
   z-index: 2;
-}
-
-@keyframes rainbow-text {
-  0% {
-    color: var(--c1);
-  }
-  16.66% {
-    color: var(--c2);
-  }
-  33.32% {
-    color: var(--c3);
-  }
-  50% {
-    color: var(--c4);
-  }
-  66.65% {
-    color: var(--c5);
-  }
-  83.3% {
-    color: var(--c6);
-  }
-  100% {
-    color: var(--c1);
-  }
 }

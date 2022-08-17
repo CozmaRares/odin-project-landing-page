@@ -35,14 +35,7 @@
             <div class="hero-content-title">
               <h1>
                 WELCOME TO <br />
-                <!-- see the script tag at the end of body to see the magic 
-                                     and in styles.css the keyframe animation at the bottom-->
-                <span id="rainbow-text">
-                  <span>D</span><span>A</span><span>N</span><span>I</span><span>'</span
-                  ><span>S</span>
-
-                  <span>P</span><span>A</span><span>G</span><span>E</span>
-                </span>
+                <span id="rainbow-text">DANI'S PAGE</span>
               </h1>
             </div>
             <p>
@@ -50,7 +43,7 @@
               <i>something</i> should be... Anyway, here's a picture of the
               <strong>best</strong> rubber duck debugger.
             </p>
-            <div class="button" onclick="openPopover()">Follow Dani</div>
+            <div class="button" onclick="openOverlay()">Follow Dani</div>
           </div>
           <img src="./assets/Dani.jpg" alt="Dani" />
         </div>
@@ -89,7 +82,8 @@
           <div class="quote-text">
             <i class="fa-solid fa-quote-left"></i>
             <span>
-              I ran out of ideas after that <strong>cool description</strong> at the top
+              I ran out of ideas after that <strong>cool description</strong> at
+              the top
             </span>
             <i class="fa-solid fa-quote-right"></i>
           </div>
@@ -101,57 +95,80 @@
           Become Dani's supporter by clicking the button right there
           <i class="fa-solid fa-arrow-right-long"></i>
         </div>
-        <div class="button" onclick="openPopover()">Follow Dani</div>
+        <div class="button" onclick="openOverlay()">Follow Dani</div>
       </section>
     </main>
     <footer>
-      Copyright &copy;
-      <a href="https://github.com/CozmaRares" target="_blank" rel="noopener noreferrer">Raru</a>,
-      2022
-      <br />
-      In conjunction with
-      <a href="https://www.theodinproject.com" target="_blank" rel="noopener noreferrer">
-        The Odin Project
-      </a>
+      <a
+        href="https://github.com/CozmaRares"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Github <i class="fa-brands fa-github"></i
+      ></a>
     </footer>
-    <div id="popover">
-      <div class="popover-container">
+    <div id="overlay">
+      <div class="overlay-container">
         <p>Of course it doesn't do anything OmegaLUL</p>
-        <div class="button" style="margin: 1rem auto 0 auto" onclick="closePopover()">Close</div>
+        <div
+          class="button"
+          style="margin: 1rem auto 0 auto"
+          onclick="closeOverlay()"
+        >
+          Close
+        </div>
       </div>
     </div>
   </body>
   <script>
     {
-      const colors = ["#f02c03", "#ff950c", "#fedc03", "#7cda01", "#0d8dff", "#b02ff7"];
+      const shiftRight = (arr) => {
+        const back = arr.pop();
+        arr.unshift(back);
+      };
 
-      // destructure HTMLCollection
-      const spans = [...document.getElementById("rainbow-text").children];
+      let colors = [
+        "#f02c03",
+        "#ff950c",
+        "#fedc03",
+        "#7cda01",
+        "#0d8dff",
+        "#b02ff7"
+      ];
 
-      const computeColorIndex = (idxSpan, idxColor) =>
-        (((colors.length - idxSpan + idxColor) % colors.length) + colors.length) % colors.length; // mathematic modulo -> -3%7=4
-      //   ^ 1st span gets the first color, 2nd span gets the last, 3rd span gets the 2nd to last and so on...
+      const rainbowTextElement = document.getElementById("rainbow-text");
 
-      spans.forEach((span, idxSpan) =>
-        colors.forEach((color, idxColor) =>
-          span.style.setProperty(`--c${idxColor + 1}`, colors[computeColorIndex(idxSpan, idxColor)])
-        )
-      );
+      const str = rainbowTextElement.innerText;
+
+      rainbowTextElement.innerHTML = [...str]
+        .map((char) => {
+          if (char === " ") return char;
+
+          const styles = colors
+            .map((color, idx) => `--c${idx}:${color}`)
+            .join(";");
+
+          const span = `<span style="${styles}">${char}</span>`;
+
+          shiftRight(colors);
+
+          return span;
+        })
+        .join("");
     }
 
-    const popoverElement = document.getElementById("popover");
+    const overlayElement = document.getElementById("overlay");
     const body = document.getElementsByTagName("body")[0];
 
-    function openPopover() {
+    function openOverlay() {
       body.style.pointerEvents = "none";
       body.style.userSelect = "none";
-      popoverElement.style.display = "block";
+      overlayElement.style.display = "block";
     }
 
-    function closePopover() {
+    function closeOverlay() {
       body.style.pointerEvents = "initial";
       body.style.userSelect = "initial";
-      popoverElement.style.display = "none";
+      overlayElement.style.display = "none";
     }
   </script>
 </html>
